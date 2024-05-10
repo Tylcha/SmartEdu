@@ -1,6 +1,13 @@
 import express from 'express';
 
+import pageRoutes from './routes/pageRoutes.js';
+
+import conn from './models/conn.js';
+
 const app = express();
+
+//DBI connection
+conn();
 
 //public folder
 app.use(express.static('public'));
@@ -8,19 +15,11 @@ app.use(express.static('public'));
 //view engine = ejs
 app.set('view engine', 'ejs');
 
-//first page
-app.get('/', (req, res) => {
-    res.status(200).render('index', {
-        page_name: 'index',
-    });
-});
-app.get('/about', (req, res) => {
-    res.status(200).render('about', {
-        page_name: 'about',
-    });
-});
+//Rotes
+app.use('/', pageRoutes);
 
-const PORT = 3000;
+//server oto port if empty take 3000
+const PORT = process.env.PORT || 3000;;
 
 app.listen(PORT, () => {
     `App is listening on ${PORT}`;
