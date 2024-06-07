@@ -5,6 +5,7 @@ import conn from './models/conn.js';
 import pageRoutes from './routes/pageRoutes.js';
 import courseRoutes from './routes/courseRoutes.js';
 import categoryRoutes from './routes/categoryRoute.js';
+import userRoute from './routes/userRoute.js';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.set('view engine', 'ejs');
 app.use('/', pageRoutes);
 app.use('/Courses', courseRoutes);
 app.use('/Categories', categoryRoutes);
+app.use('/users', userRoute);
 
 //server oto port if empty take 3000
 const PORT = process.env.PORT || 3000;
