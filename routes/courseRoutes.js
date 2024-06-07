@@ -5,5 +5,6 @@ const router = express.Router();
 
 router.route('/').post(courseContoller.postCoursePage);
 router.route('/').get(courseContoller.gettAllCourses);
+router.route('/:slug').get(courseContoller.gettCourse);
 
 export default router;

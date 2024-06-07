@@ -16,12 +16,33 @@ const postCoursePage = async (req, res) => {
 };
 
 const gettAllCourses = async (req, res) => {
-    const courses = await Courses.find({});
-    res.status(200).render('course-grid-2', {
-        page_name: 'Courses',
-        courses,
-    });
+    try {
+        const courses = await Courses.find({});
+        res.status(200).render('courses', {
+            page_name: 'Courses',
+            courses,
+        });
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            error,
+        });
+    }
+};
+const gettCourse = async (req, res) => {
+    try {
+        //findone beacuse use slug
+        const course = await Courses.findOne({slug: req.params.slug});
+        res.status(200).render('course', {
+            page_name: 'Course',
+            course,
+        });
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            error,
+        });
+    }
+};
 
-}; 
-
-export { postCoursePage, gettAllCourses };
+export { postCoursePage, gettAllCourses, gettCourse };
