@@ -93,29 +93,21 @@
                       <li class="nav-item <%= page_name === 'index' && 'active' %>"><a class="nav-link" href="/">Home</a></li>
                       <li class="nav-item <%= page_name === 'about' && 'active' %>"><a class="nav-link" href="/about">About Us</a></li>
                       <li class="nav-item <%= page_name === 'Courses' && 'active' %>"><a class="nav-link" href="/Courses">Course</a></li>
-                      <!-- <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Course </a>
-                          <div class="dropdown-menu" aria-labelledby="dropdown-a">
-                              <a class="dropdown-item" href="/Courses">Course Grid 2 </a>
-                              <a class="dropdown-item" href="course-grid-3.html">Course Grid 3 </a>
-                              <a class="dropdown-item" href="course-grid-4.html">Course Grid 4 </a>
-                          </div>
-                      </li> -->
-                      <!-- <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Blog </a>
-                          <div class="dropdown-menu" aria-labelledby="dropdown-a">
-                              <a class="dropdown-item" href="/blog">Blog </a>
-                              <a class="dropdown-item" href="/blog-single">Blog single </a>
-                          </div>
-                      </li> -->
-                      <li class="nav-item"><a class="nav-link" href="/teachers">Teachers</a></li>
-                      <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li>
-                      <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                      <li class="nav-item <%= page_name === 'dashboard' && 'active' %>"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+                      <li class="nav-item <%= page_name === 'contact' && 'active' %>"><a class="nav-link" href="/contact">Contact</a></li>
                   </ul>
-                  <ul class="nav navbar-nav navbar-right">
+                  <% if (!userIN) { %>
+                   <ul class="nav navbar-nav navbar-right">
                     <li><a class="hover-btn-new log <%= page_name ==='login' && 'orange' %> mr-2" href="/login"><span><i class="fa fa-sign-in" aria-hidden="true"></i></span></a></li>
                     <li><a class="hover-btn-new log <%= page_name ==='register' && 'orange' %>" href="/register"><span><i class="fa fa-user-plus" aria-hidden="true"></i></span></a></li>
-                </ul>
+                    </ul>
+                  <% } %>
+                  <% if (userIN) { %>
+                    <ul class="nav navbar-nav navbar-right">
+                    <li><a class="hover-btn-new log <%= page_name ==='logout' && 'orange' %>" href="/logout"><span><i class="fa fa-sign-out" aria-hidden="true"></i></span></a></li>
+                    </ul>
+                    <% } %>
+                  
               </div>
           </div>
       </nav>

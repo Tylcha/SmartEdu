@@ -1,4 +1,7 @@
+import session from "express-session";
+
 const getIndexPage = (req, res) => {
+    console.log(req.session.userID);
     res.status(200).render('index', {
         page_name: 'index',
     });
@@ -15,5 +18,10 @@ const getRegisterPage = (req, res) => {
         page_name: 'register',
     });
 };
+const getLoginPage = (req, res) => {
+    res.status(200).render('login', {
+        page_name: 'login',
+    });
+};
 
-export { getIndexPage, getAboutPage, getRegisterPage };
+export { getIndexPage, getAboutPage, getRegisterPage, getLoginPage };
