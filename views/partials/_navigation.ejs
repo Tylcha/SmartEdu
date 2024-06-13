@@ -93,7 +93,9 @@
                       <li class="nav-item <%= page_name === 'index' && 'active' %>"><a class="nav-link" href="/">Home</a></li>
                       <li class="nav-item <%= page_name === 'about' && 'active' %>"><a class="nav-link" href="/about">About Us</a></li>
                       <li class="nav-item <%= page_name === 'Courses' && 'active' %>"><a class="nav-link" href="/Courses">Course</a></li>
-                      <li class="nav-item <%= page_name === 'dashboard' && 'active' %>"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+                      <% if (userIN) { %>
+                      <li class="nav-item <%= page_name === 'dashboard' && 'active' %>"><a class="nav-link" href="/users/dashboard">Dashboard</a></li>
+                      <% } %>
                       <li class="nav-item <%= page_name === 'contact' && 'active' %>"><a class="nav-link" href="/contact">Contact</a></li>
                   </ul>
                   <% if (!userIN) { %>

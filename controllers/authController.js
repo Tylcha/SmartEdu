@@ -1,6 +1,7 @@
 import User from '../models/User.js';
 import bcrypt from 'bcrypt';
 import session from 'express-session';
+import Course from '../models/Courses.js';
 
 const CreateUser = async (req, res) => {
     try {
@@ -26,7 +27,7 @@ const postLoginUser = async (req, res) => {
                 if (same) {
                     req.session.userID = user._id;
                     //res.status(200).send('YOU ARE LOGGED IN');
-                    res.status(200).redirect('/');
+                    res.status(200).redirect('/users/dashboard');
                 } else {
                     res.status(401).send('Invalid password');
                 }
@@ -51,4 +52,16 @@ const LogoutUser = async (req, res) => {
         });
     }
 };
-export { CreateUser, postLoginUser, LogoutUser };
+
+//users/dashboard
+const getDashboardPage = async (req, res) => {
+    const user = await User.findOne({_id:req.session.userID})
+    const course = await Course.find({})
+    res.status(200).render('dashboard', {
+        page_name: 'dashboard',
+        user,
+        course,
+    });
+};
+
+export { CreateUser, postLoginUser, LogoutUser, getDashboardPage };
