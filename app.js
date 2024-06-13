@@ -1,5 +1,6 @@
 import express from 'express';
 import session from 'express-session';
+import MongoStore  from 'connect-mongo';
 
 import conn from './models/conn.js';
 
@@ -25,6 +26,9 @@ app.use(
         secret: 'Smarth_Edu_S',
         resave: false,
         saveUninitialized: true,
+        store: MongoStore.create({ 
+            mongoUrl: process.env.DBI_URL,
+         })
     })
 );
 

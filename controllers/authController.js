@@ -39,5 +39,16 @@ const postLoginUser = async (req, res) => {
         });
     }
 };
-
-export { CreateUser, postLoginUser };
+const LogoutUser = async (req, res) => {
+    try {
+        req.session.destroy(() => {
+            res.redirect('/');
+        });
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            error,
+        });
+    }
+};
+export { CreateUser, postLoginUser, LogoutUser };
