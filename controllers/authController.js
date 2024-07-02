@@ -55,6 +55,9 @@ const LogoutUser = async (req, res) => {
 
 //users/dashboard
 const getDashboardPage = async (req, res) => {
+    if (!req.session.userID) {
+        res.status(401).send('Unauth');
+    }
     const user = await User.findOne({_id:req.session.userID})
     const course = await Course.find({})
     res.status(200).render('dashboard', {
