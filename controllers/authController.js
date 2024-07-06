@@ -2,14 +2,16 @@ import User from '../models/User.js';
 import bcrypt from 'bcrypt';
 import session from 'express-session';
 import Course from '../models/Courses.js';
+import Category from "../models/Category.js";
 
 const CreateUser = async (req, res) => {
     try {
         const user = await User.create(req.body);
-        res.status(201).json({
-            status: 'success',
-            user,
-        });
+        // res.status(201).json({
+        //     status: 'success',
+        //     user,
+        // });
+        res.status(201).redirect('/login')
     } catch (error) {
         res.status(400).json({
             status: 'fail',
@@ -32,6 +34,9 @@ const postLoginUser = async (req, res) => {
                     res.status(401).send('Invalid password');
                 }
             });
+        }
+        else{
+            res.status(401).send('invalid password')
         }
     } catch (error) {
         res.status(400).json({
@@ -60,10 +65,12 @@ const getDashboardPage = async (req, res) => {
     }
     const user = await User.findOne({_id:req.session.userID})
     const course = await Course.find({})
+    const categories = await Category.find({});
     res.status(200).render('dashboard', {
         page_name: 'dashboard',
         user,
         course,
+        categories
     });
 };
 

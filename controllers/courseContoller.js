@@ -4,10 +4,11 @@ import Category from '../models/Category.js';
 const postCoursePage = async (req, res) => {
     try {
         const course = await Courses.create(req.body);
-        res.status(201).json({
-            status: 'success',
-            course,
-        });
+        // res.status(201).json({
+        //     status: 'success',
+        //     course,
+        // });
+        res.status(201).redirect('/Courses')
     } catch (error) {
         res.status(400).json({
             status: 'fail',
@@ -43,7 +44,7 @@ const gettAllCourses = async (req, res) => {
         //show course and categories
 
         //filt the course for category if query empty showw all
-        const courses = await Courses.find(filter);
+        const courses = await Courses.find(filter).sort('-createDate');
         const category = await Category.find({});
         res.status(200).render('courses', {
             page_name: 'Courses',
