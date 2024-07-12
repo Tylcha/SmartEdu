@@ -64,13 +64,14 @@ const getDashboardPage = async (req, res) => {
         res.status(401).send('Unauth');
     }
     const user = await User.findOne({_id:req.session.userID})
-    const course = await Course.find({})
     const categories = await Category.find({});
+    const course = await Course.find({user:req.session.userID}).populate('user');
+    console.log(course);
     res.status(200).render('dashboard', {
         page_name: 'dashboard',
         user,
         course,
-        categories
+        categories,
     });
 };
 

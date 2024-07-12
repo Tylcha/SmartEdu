@@ -24,6 +24,10 @@ const CourseSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }
 });
 
 //save before this.slug is name attribute

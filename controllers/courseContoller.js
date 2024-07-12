@@ -1,9 +1,16 @@
 import Courses from '../models/Courses.js';
 import Category from '../models/Category.js';
+import User from '../models/User.js';
 
 const postCoursePage = async (req, res) => {
     try {
-        const course = await Courses.create(req.body);
+        const course = await Courses.create({
+            name: req.body.name,
+            description: req.body.description,
+            category: req.body.category,
+            user: req.session.userID
+
+        });
         // res.status(201).json({
         //     status: 'success',
         //     course,
@@ -43,9 +50,10 @@ const gettAllCourses = async (req, res) => {
 
         //show course and categories
 
-        //filt the course for category if query empty showw all
-        const courses = await Courses.find(filter).sort('-createDate');
+        //filt the course for category if query empty showw all // and puppulate user, show user
+        const courses = await Courses.find(filter).sort('-createDate').populate('user');;
         const category = await Category.find({});
+        
         res.status(200).render('courses', {
             page_name: 'Courses',
             courses,
@@ -61,7 +69,7 @@ const gettAllCourses = async (req, res) => {
 const gettCourse = async (req, res) => {
     try {
         //findone beacuse use slug
-        const course = await Courses.findOne({ slug: req.params.slug });
+        const course = await Courses.findOne({ slug: req.params.slug }).populate('user');
         res.status(200).render('course', {
             page_name: 'Course',
             course,
